@@ -1,5 +1,5 @@
 {
-  "domain": "litetouch2",
+  "domain": "litetouch",
   "name": "Savant LiteTouch",
   "documentation": "https://github.com/patmann03/pylitetouch",
   "requirements": ["pylitetouch2==0.0.6"],
