@@ -1,7 +1,7 @@
 """Support for LiteTouch 5000LC and Savant SSL-P018 ."""
 import logging
 
-from pylitetouch.pylitetouch import LiteTouch
+from pylitetouch2.pylitetouch2 import LiteTouch
 import voluptuous as vol
 
 from homeassistant.const import (
