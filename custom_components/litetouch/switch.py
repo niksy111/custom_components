@@ -12,6 +12,7 @@ from . import (
     CONF_LOADID,
     CONF_ICON,
     CONF_TOGGLE,
+    CONF_TIME,
     LITETOUCH_CONTROLLER,
     LiteTouchDevice,
 )
@@ -34,6 +35,7 @@ def setup_platform(hass, config, add_entities, discover_info=None):
             switch[CONF_LOADID],
             switch[CONF_ICON],
             switch[CONF_TOGGLE],
+            switch[CONF_TIME],
         )
         devs.append(dev)
     add_entities(devs, True)
@@ -42,13 +44,14 @@ def setup_platform(hass, config, add_entities, discover_info=None):
 class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
     """LiteTouch Switch."""
 
-    def __init__(self, controller, addr, name, loadid, icon, toggle):
+    def __init__(self, controller, addr, name, loadid, icon, toggle, time):
         """Create device with Addr, name, and loadid."""
         super().__init__(controller, addr, name)
         self._loadid = int(loadid)
         self._icon = icon
         self._state = 0
         self._toggle = toggle
+        self._time = time
 
     async def async_added_to_hass(self):
         """Call when entity is added to hass."""
@@ -64,6 +67,9 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
             _LOGGER.debug("Call toggle on")
             self._controller.toggle_switch(int(keypad), int(button))
         else:
+            if self._toggle is True:
+                self._controller.set_clock(self)
+            else:
             self._controller.set_loadon(self._loadid)
 
     def turn_off(self, **kwargs):
