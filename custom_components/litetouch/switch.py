@@ -67,7 +67,7 @@ class LiteTouchSwitch(LiteTouchDevice, SwitchDevice):
             _LOGGER.debug("Call toggle on")
             self._controller.toggle_switch(int(keypad), int(button))
         else:
-            if self._toggle is True:
+            if self._time is True:
                 self._controller.set_clock(self)
             else:
             self._controller.set_loadon(self._loadid)
